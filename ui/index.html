@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FocusPulse</title>
+
+  <!-- Import Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Link to CSS file -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<div class="container">
+  <h1>FocusPulse</h1>
+  <p class="tagline">A Lightweight Study Timer</p>
+
+  <div class="mode-toggle">
+    <button id="focusBtn" class="active">FOCUS</button>
+    <button id="breakBtn">BREAK</button>
+  </div>
+
+  <div class="timer-ring">
+    <span id="timer">25:00</span>
+  </div>
+
+  <div class="controls">
+    <button id="startBtn">Start</button>
+    <button id="pauseBtn">Pause</button>
+  </div>
+
+  <div class="session-controls">
+    <div>Sessions: <span id="sessionCount">0</span></div>
+    <button id="resetBtn">Reset</button>
+  </div>
+</div>
+
+<!-- Link to JavaScript -->
+<script src="script.js"></script>
+</body>
+</html>
