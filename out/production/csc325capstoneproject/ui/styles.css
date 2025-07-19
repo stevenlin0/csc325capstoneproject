@@ -1,0 +1,115 @@
+/* styles.css */
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: #f1e9ff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.container {
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    width: 320px;
+}
+
+h1 {
+    font-size: 2rem;
+    color: #1f1f1f;
+}
+
+.tagline {
+    color: #555;
+    margin-bottom: 1.5rem;
+}
+
+.mode-toggle {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.mode-toggle button {
+    flex: 1;
+    padding: 0.5rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px 10px 0 0;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+#focusBtn.active {
+    background-color: #ffa726;
+    color: #fff;
+}
+
+#breakBtn.active {
+    background-color: #26c6da;
+    color: #fff;
+}
+
+.timer-ring {
+    border: 6px solid #26c6da;
+    border-radius: 50%;
+    padding: 2.5rem;
+    margin: 1rem auto;
+    width: 200px;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff4e6;
+}
+
+#timer {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #263238;
+}
+
+.controls {
+    margin-top: 1rem;
+}
+
+.controls button {
+    margin: 0 0.5rem;
+    padding: 0.5rem 1rem;
+    font-weight: bold;
+    font-size: 1rem;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+#startBtn {
+    background-color: #ffa726;
+    color: #fff;
+}
+
+#pauseBtn {
+    background-color: #e0e0e0;
+    color: #333;
+}
+
+.session-controls {
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#resetBtn {
+    padding: 0.5rem 1rem;
+    background-color: #fff;
+    border: 2px solid #333;
+    border-radius: 10px;
+    cursor: pointer;
+}

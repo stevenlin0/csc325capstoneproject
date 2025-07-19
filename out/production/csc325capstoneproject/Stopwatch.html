@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FocusPulse</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+
+    header, footer {
+      background: white;
+      padding: 15px;
+      text-align: center;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    .logo-icon {
+      background: #3b82f6;
+      color: #fff;
+      display: inline-block;
+      padding: 10px;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+
+    .session-badge {
+      background: #eee;
+      display: inline-block;
+      padding: 5px 10px;
+      border-radius: 9999px;
+    }
+
+    .timer-section, .controls, .progress-section, .settings-section {
+      margin: 30px 0;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+    }
+
+    .timer {
+      font-size: 60px;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .controls button {
+      padding: 10px 20px;
+      margin: 10px;
+      font-size: 18px;
+    }
+
+    .progress-grid {
+      display: flex;
+      gap: 10px;
+      justify-content: space-around;
+      flex-wrap: wrap;
+    }
+
+    .progress-card {
+      background: #f0f0f0;
+      padding: 15px;
+      border-radius: 8px;
+      flex: 1 1 200px;
+      text-align: center;
+    }
+
+    .settings-grid {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .form-group {
+      flex: 1;
+    }
+
+    select {
+      width: 100%;
+      padding: 8px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo-icon">⏱</div>
+    <h1>FocusPulse</h1>
+    <div class="session-badge">
+      <span id="session-count">0</span> sessions
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="timer-section">
+      <div id="status-text">Focus Session</div>
+      <div id="timer-display" class="timer">25:00</div>
+    </section>
+
+    <section class="controls">
+      <button id="start-pause-btn"> ▶ Start</button>
+      <button id="reset-btn">↻ Reset</button>
+    </section>
+
+    <section class="progress-section">
+      <h2>Today's Progress</h2>
+      <button id="clear-history-btn">Clear History</button>
+      <div class="progress-grid">
+        <div class="progress-card">
+          <div id="completed-sessions">0</div>
+          <div>Completed Sessions</div>
+        </div>
+        <div class="progress-card">
+          <div id="focus-time">0h 0m</div>
+          <div>Focus Time</div>
+        </div>
+        <div class="progress-card">
+          <div id="current-streak">0</div>
+          <div>Current Streak</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="settings-section">
+      <h2>Timer Settings</h2>
+      <div class="settings-grid">
+        <div class="form-group">
+          <label>Focus Duration</label>
+          <select id="focus-duration">
+            <option value="25">2 minutes</option>
+            <option value="30">30 minutes</option>
+            <option value="45">45 minutes</option>
+            <option value="60">60 minutes</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Break Duration</label>
+          <select id="break-duration">
+            <option value="5">1 minutes</option>
+            <option value="10">10 minutes</option>
+            <option value="15">15 minutes</option>
+          </select>
+        </div>
+      </div>
+    </section>
+  </main>
+
+
+  <script>
+    let focusMins = 2
+    let breakMins = 1
+    let isRunning = false
+    let isFocus = true
+    let timeLeft = focusMins * 60
+    let interval
+    let sessions = 0
+    let streak = 0
+    let totalTime = 0
+
+    const timerEl = document.getElementById('timer-display')
+    const startBtn = document.getElementById('start-pause-btn')
+    const resetBtn = document.getElementById('reset-btn')
+    const statusText = document.getElementById('status-text')
+    const completedSessions = document.getElementById('completed-sessions')
+    const focusTime = document.getElementById('focus-time')
+    const currentStreak = document.getElementById('current-streak')
+
+    document.getElementById('focus-duration').onchange = (e) => {
+      focusMins = parseInt(e.target.value)
+      if (isFocus && !isRunning) {
+        timeLeft = focusMins * 60
+        updateDisplay()
+      }
+    }
+
+    document.getElementById('break-duration').onchange = (e) => {
+      breakMins = parseInt(e.target.value)
+      if (!isFocus && !isRunning) {
+        timeLeft = breakMins * 60
+        updateDisplay()
+      }
+    }
+
+    startBtn.onclick = () => {
+      if (isRunning) {
+        clearInterval(interval)
+        startBtn.textContent = '▶ Start'
+        isRunning = false
+      } else {
+        startBtn.textContent = '⏸ Pause'
+        isRunning = true
+        interval = setInterval(() => {
+          timeLeft--
+          updateDisplay()
+          if (timeLeft <= 0) finishSession()
+        }, 1000)
+      }
+    }
+
+    resetBtn.onclick = () => {
+      clearInterval(interval)
+      isRunning = false
+      timeLeft = (isFocus ? focusMins : breakMins) * 60
+      startBtn.textContent = '▶ Start'
+      updateDisplay()
+    }
+
+    document.getElementById('clear-history-btn').onclick = () => {
+      sessions = 0; streak = 0; totalTime = 0
+      updateStats()
+    }
+
+    function finishSession() {
+      clearInterval(interval)
+      isRunning = false
+      if (isFocus) {
+        sessions++
+        totalTime += focusMins * 60
+        streak++
+      } else {
+      
+      }
+      isFocus = !isFocus
+      timeLeft = (isFocus ? focusMins : breakMins) * 60
+      statusText.textContent = isFocus ? 'Focus Session' : 'Break Time'
+      updateStats()
+      updateDisplay()
+    }
+
+    function updateDisplay() {
+      let min = Math.floor(timeLeft / 60)
+      let sec = timeLeft % 60
+      timerEl.textContent = `${min}:${sec < 10 ? '0'+sec : sec}`
+    }
+
+    function updateStats() {
+      completedSessions.textContent = sessions
+      focusTime.textContent = `${Math.floor(totalTime/3600)}h ${Math.floor((totalTime%3600)/60)}m`
+      currentStreak.textContent = streak
+    }
+
+    updateDisplay()
+    updateStats()
+  </script>
+</body>
+</html>

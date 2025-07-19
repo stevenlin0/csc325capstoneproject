@@ -1,0 +1,74 @@
+body {
+    margin: 0;
+    font-family: 'Outfit', sans-serif;
+    background: linear-gradient(to bottom right, #673ab7, #e91e63);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #fff;
+}
+
+.container {
+    text-align: center;
+}
+
+.brand {
+    font-weight: 700;
+    color: #fff;
+}
+
+.tagline {
+    font-size: 1.1rem;
+    margin-top: -10px;
+    margin-bottom: 30px;
+    font-weight: 400;
+    color: #f3f3f3;
+}
+
+.card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 30px 25px;
+    width: 300px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+    color: #222;
+}
+
+.illustration {
+    width: 140px;
+    margin-bottom: 20px;
+}
+
+.btn {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.login {
+    background-color: #2962ff;
+    color: #fff;
+}
+
+.guest {
+    background-color: #f1f3f4;
+    color: #333;
+}
+
+.signup-text {
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.signup-text a {
+    color: #2962ff;
+    text-decoration: none;
+    font-weight: 600;
+}
