@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Sign Up | FocusPulse</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Outfit', sans-serif;
+      background: linear-gradient(135deg, #8e2de2, #ff6a00);
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .signup-container {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 20px;
+      padding: 40px 30px;
+      width: 350px;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+      color: #fff;
+      text-align: center;
+      animation: fadeIn 0.8s ease;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .signup-container h2 {
+      font-size: 26px;
+      margin-bottom: 10px;
+    }
+
+    .signup-container p {
+      font-size: 14px;
+      color: #ddd;
+      margin-bottom: 25px;
+    }
+
+    .signup-container input {
+      width: 100%;
+      padding: 14px;
+      margin: 10px 0;
+      border-radius: 10px;
+      border: none;
+      outline: none;
+      font-size: 14px;
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      transition: all 0.3s ease;
+    }
+
+    .signup-container input::placeholder {
+      color: #eee;
+    }
+
+    .signup-container input:focus {
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    .signup-container button {
+      width: 100%;
+      padding: 14px;
+      margin-top: 20px;
+      border: none;
+      border-radius: 10px;
+      background-color: #ffffff;
+      color: #5e60ce;
+      font-weight: bold;
+      font-size: 15px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .signup-container button:hover {
+      background-color: #f0f0f0;
+    }
+
+    .signup-container .login-link {
+      margin-top: 20px;
+      font-size: 13px;
+      color: #eee;
+    }
+
+    .signup-container .login-link a {
+      color: #fff;
+      font-weight: bold;
+      text-decoration: underline;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 400px) {
+      .signup-container {
+        width: 90%;
+        padding: 30px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="signup-container">
+  <h2>Create your account</h2>
+  <p>Join FocusPulse and boost your productivity!</p>
+  <input type="text" placeholder="Username" id="username" />
+  <input type="email" placeholder="Email" id="email" />
+  <input type="password" placeholder="Password" id="password" />
+  <input type="password" placeholder="Confirm Password" id="confirmPassword" />
+  <button onclick="createAccount()">Sign Up</button>
+  <div class="login-link">
+    Already have an account? <a href="login.html">Log in</a>
+  </div>
+</div>
+
+<script>
+  function createAccount() {
+    const username = document.getElementById("username").value;
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+    const confirmPassword = document.getElementById("confirmPassword").value;
+
+    if (!username || !email || !password || !confirmPassword) {
+      alert("⚠️ Please fill in all fields.");
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      alert(" Passwords do not match.");
+      return;
+    }
+
+    // This is where you'd send the data to a backend or store locally
+    alert("Account created successfully!");
+    window.location.href = "login.html";
+  }
+</script>
+</body>
+</html>
