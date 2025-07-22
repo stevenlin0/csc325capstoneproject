@@ -5,6 +5,8 @@ public class Main {
         try {
             // create DAO
             SessionDAO dao = new SessionDAO("focuspulse.db");
+            dao.createSessionsTable(); //create table if it doesn't exist
+
 
             // insert a test session
             Session s = new Session(25, 5, "2025-07-13T09:00", "2025-07-13T09:30");
