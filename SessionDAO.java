@@ -19,6 +19,18 @@ public class SessionDAO {
         conn = DriverManager.getConnection("jdbc:sqlite:" + dbPath);
     }
 
+    public void createSessionsTable() throws SQLException {
+        String sql = "CREATE TABLE IF NOT EXISTS sessions (" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "focusDuration INTEGER NOT NULL, " +
+                "breakDuration INTEGER NOT NULL, " +
+                "startTime TEXT NOT NULL, " +
+                "endTime TEXT NOT NULL)";
+        try (Statement stmt = conn.createStatement()) {
+            stmt.execute(sql);
+        }
+    }
+
     /**
      * inserts a new session record into the database.
      *
